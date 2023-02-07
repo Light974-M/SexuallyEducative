@@ -9,6 +9,8 @@ public class MB_EnemyController : MonoBehaviour
     [Header("ENEMY TYPE")]
     [Tooltip("Drag and drop here the Scriptable Object of the enemy you want it to be!")] 
     public SO_Enemy _soEnemy;
+    [Tooltip("Drag and drop here the Scriptable Object of the weapon you want the enemy to use!")]
+    public SO_Weapon _soWeapon;
 
     //Behaviour Variables
     float _walkSpeed;
@@ -28,6 +30,9 @@ public class MB_EnemyController : MonoBehaviour
 
     [Header("GIZMOS")]
     [SerializeField] private bool _enableDetectionGizmos;
+    MB_EnemyAttack _enemyAttack;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +42,14 @@ public class MB_EnemyController : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
         _availableDestinations = GameObject.FindGameObjectsWithTag("Destination");
         _randomDestination = _availableDestinations[Random.Range(0, _availableDestinations.Length)].transform;
+        _enemyAttack = GetComponent<MB_EnemyAttack>();
 
         //Variables get Scriptables Value
         _walkSpeed = _soEnemy._walkSpeed;
         _runSpeed = _soEnemy._runSpeed;
         _canFollowplayer = _soEnemy._canFollowPlayer;
+
+       
     }
 
     // Update is called once per frame
@@ -84,8 +92,18 @@ public class MB_EnemyController : MonoBehaviour
             }
         }
 
+        //If is close enough to attack player
+        if (_playerDistance <= _soEnemy._playerAttackDistance)
+        {
+            _enemyAttack._canAttack = true;
+        }
+        else
+        {
+            _enemyAttack._canAttack = false;
+        }
+
         //Random Destination Change
-        if(!_isFollowingPlayer)
+        if (!_isFollowingPlayer)
         {
             _timeToChangeDirection -= Time.deltaTime;
 
@@ -97,7 +115,10 @@ public class MB_EnemyController : MonoBehaviour
             }
         }
 
-
+        if(_player == null)
+        {
+            _destination = _randomDestination.transform;
+        }
         //Destination manager
         _enemyAgent.SetDestination(_destination.position);
     }
@@ -106,10 +127,12 @@ public class MB_EnemyController : MonoBehaviour
     {
         if(_enableDetectionGizmos)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(this.transform.position, _soEnemy._playerDistanceDetection);
             Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(this.transform.position, _soEnemy._playerDistanceDetection);
+            Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(this.transform.position, _soEnemy._playerUnfollowDistance);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(this.transform.position, _soEnemy._playerAttackDistance);
         }
     
     }

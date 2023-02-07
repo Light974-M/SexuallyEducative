@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MB_EnemyLife : MonoBehaviour
+public class MB_PlayerLife : MonoBehaviour
 {
-    MB_EnemyController _enemyController;
-    SO_Enemy _enemySo;
 
+   [SerializeField]SO_Enemy _enemySo;
+    [SerializeField] MB_WeaponController _weaponController;
     float _life;
-
+    [SerializeField] SO_Weapon _weaponSO;
     //Life Bar Variables
     [SerializeField, Tooltip("The bar following equals to the life")] Transform jaugeTransform;
     [SerializeField, Tooltip("The bar following the first bar for a better effect")] Transform secondaryJauge;
-    MB_WeaponController _weaponController;
+
     bool canDie;
     SegarioFeedbackMaker _feedbackMaker;
     [SerializeField] private GameObject _deathFX;
@@ -20,12 +20,10 @@ public class MB_EnemyLife : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _enemyController = GetComponent<MB_EnemyController>();
-        _enemySo = _enemyController._soEnemy;
+        _weaponController._attack = _enemySo._attack + _weaponSO._attack;
         _life = _enemySo._originalLife;
         canDie = true;
         _feedbackMaker = FindObjectOfType<SegarioFeedbackMaker>();
-
     }
 
     // Update is called once per frame
@@ -34,8 +32,7 @@ public class MB_EnemyLife : MonoBehaviour
         //If the life is inferior to 0
         if (_life <= 0 && canDie)
         {
-            _feedbackMaker.ScreenShake(_cam, 1, 1);
-            _feedbackMaker.FreezeFrame(1);
+            _feedbackMaker.FreezeFrame(0.6f);
             _feedbackMaker.InstantiateFX(_deathFX, this.transform.position);
             _life = 0;
             Invoke("Death", 1);
@@ -49,21 +46,21 @@ public class MB_EnemyLife : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "EnemyWeapon")
+        {
+            _feedbackMaker.ScreenShake(_cam, 1, 1);
+            _feedbackMaker.FreezeFrame(1);
+            Debug.Log("Hit Player");
+            _weaponController = collision.gameObject.GetComponent<MB_WeaponController>();
+            _life -= _weaponController._attack;
+        }
+    }
+
     //Death of the enemy
     void Death()
     {
         Destroy(gameObject);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Weapon")
-        {
-            _feedbackMaker.ScreenShake(_cam, 1, 1);
-            _feedbackMaker.FreezeFrame(1);
-            Debug.Log("Hit Enemy");
-            _weaponController = collision.gameObject.GetComponent<MB_WeaponController>();
-            _life -= _weaponController._attack;
-        }
     }
 }

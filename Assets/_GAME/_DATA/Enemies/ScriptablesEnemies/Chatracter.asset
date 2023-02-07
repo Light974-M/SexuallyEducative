@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ff1260aeab675a45afac85cbf24c14c, type: 3}
-  m_Name: TestEnemy
+  m_Name: Chatracter
   m_EditorClassIdentifier: 
-  _name: Test Enemy
-  _description: 
-  _canFollowPlayer: 1
-  _walkSpeed: 0.75
-  _runSpeed: 3.05
-  _playerDistanceDetection: 5
-  _playerUnfollowDistance: 10
-  _playerAttackDistance: 3
-  _minTimeToChangeDirection: 2
-  _maxTimeToChangeDirection: 6
-  _originalLife: 20
-  _attack: 13
-  _minTimeBeforeAttack: 1
-  _maxTimeBeforeAttack: 3
+  _name: 
+  _description: Bob
+  _canFollowPlayer: 0
+  _walkSpeed: 0
+  _runSpeed: 0
+  _playerDistanceDetection: 0
+  _playerUnfollowDistance: 0
+  _playerAttackDistance: 0
+  _minTimeToChangeDirection: 0
+  _maxTimeToChangeDirection: 0
+  _originalLife: 60
+  _attack: 9
+  _minTimeBeforeAttack: 0
+  _maxTimeBeforeAttack: 0

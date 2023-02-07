@@ -4,6 +4,7 @@ using UnityEngine;
 public class SO_Enemy : ScriptableObject
 {
     public string _name;
+    public string _description;
 
     [Header("Movements Variables")]
     [Tooltip("Determines if the enemy can follow the player")]
@@ -21,6 +22,9 @@ public class SO_Enemy : ScriptableObject
     [Tooltip("The distance where it stops to follow player"), Range(2, 30)]
     public float _playerUnfollowDistance;
 
+    [Tooltip("The distance where it stops to follow player"), Range(0, 5)]
+    public float _playerAttackDistance;
+
     [Header("Change Direction"), Range(2, 15)]
     public int _minTimeToChangeDirection;
 
@@ -33,4 +37,7 @@ public class SO_Enemy : ScriptableObject
 
     [Tooltip("The attack of the enemy"), Range(1, 25)]
     public int _attack;
+
+    public float _minTimeBeforeAttack;
+    public float _maxTimeBeforeAttack;
 }
