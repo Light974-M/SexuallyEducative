@@ -6,6 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MB_EnemyController : MonoBehaviour
 {
+    [Header("ENEMY TYPE")]
     [Tooltip("Drag and drop here the Scriptable Object of the enemy you want it to be!")] 
     public SO_Enemy _soEnemy;
 
@@ -21,10 +22,12 @@ public class MB_EnemyController : MonoBehaviour
     bool _isFollowingPlayer;
 
     //Random Destinations Variables
-    [SerializeField, Tooltip("Drag and drop here the Transforms that will be the destinations when the enemy isn't following the player")] 
     private GameObject[] _availableDestinations;
     Transform _randomDestination;
-    public float _timeToChangeDirection;
+    [HideInInspector] public float _timeToChangeDirection;
+
+    [Header("GIZMOS")]
+    [SerializeField] private bool _enableDetectionGizmos;
 
     // Start is called before the first frame update
     void Start()
@@ -97,5 +100,17 @@ public class MB_EnemyController : MonoBehaviour
 
         //Destination manager
         _enemyAgent.SetDestination(_destination.position);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(_enableDetectionGizmos)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(this.transform.position, _soEnemy._playerDistanceDetection);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(this.transform.position, _soEnemy._playerUnfollowDistance);
+        }
+    
     }
 }

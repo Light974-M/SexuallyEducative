@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff1260aeab675a45afac85cbf24c14c, type: 3}
+  m_Name: TestEnemy 1
+  m_EditorClassIdentifier: 
+  _name: Test Enemy
+  _canFollowPlayer: 1
+  _walkSpeed: 2
+  _runSpeed: 4
+  _playerDistanceDetection: 4
+  _playerUnfollowDistance: 15
+  _minTimeToChangeDirection: 2
+  _maxTimeToChangeDirection: 6
+  _originalLife: 30
+  _attack: 8
