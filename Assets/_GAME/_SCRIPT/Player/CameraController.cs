@@ -1,4 +1,6 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace UPDB.CamerasAndCharacterControllers.Cameras.TpsCamera
 {
@@ -14,7 +16,7 @@ namespace UPDB.CamerasAndCharacterControllers.Cameras.TpsCamera
         [SerializeField, Tooltip("speed of mouse look in X and Y")]
         private Vector2 _lookSpeed = Vector2.one;
 
-
+        private Vector2 _inputValue = Vector2.zero;
         private Vector2 _rotation = Vector2.zero;
 
 
@@ -48,12 +50,19 @@ namespace UPDB.CamerasAndCharacterControllers.Cameras.TpsCamera
 
         private void Look()
         {
-            Vector2 mouse = new Vector2(Input.GetAxis("Mouse X") * _lookSpeed.x, Input.GetAxis("Mouse Y") * _lookSpeed.y);
+            Vector2 mouse = new Vector2(_inputValue.x * _lookSpeed.x, _inputValue.y * _lookSpeed.y);
             _rotation += new Vector2(-mouse.y, mouse.x);
 
             _rotation.x = Mathf.Clamp(_rotation.x, -89, 89);
 
             _cameraPivot.eulerAngles = new Vector3(_rotation.x, _rotation.y, 0.0f);
+
+            _inputValue = Vector2.zero;
+        }
+
+        public void GetLook(InputAction.CallbackContext callback)
+        {
+            _inputValue = callback.ReadValue<Vector2>();
         }
     } 
 }

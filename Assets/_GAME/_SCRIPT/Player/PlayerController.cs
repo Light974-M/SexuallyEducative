@@ -26,7 +26,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("set player rotation mode while walking")]
     private PlayerRotationMode _rotationMode;
 
+    [SerializeField, Tooltip("determine time for player to reach max fall speed")]
+    private float _fallDownHardeness = 1;
+
     private Vector2 _inputValue = Vector2.zero;
+    private bool _isGrounded = false;
+    private float _timer = 0;
 
     private float _normalizedInputMagnitudeMemo = 0;
     private Vector2 _inputValueNotNullable = Vector2.zero;
@@ -70,6 +75,9 @@ public class PlayerController : MonoBehaviour
         {
             LookDir();
             Move();
+            GravityApply();
+
+            _isGrounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), 0.5f);
         }
     }
 
@@ -80,6 +88,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!Application.isPlaying)
             Init();
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), 0.5f);
+        Gizmos.color = Color.white;
     }
 
     /// <summary>
@@ -136,7 +147,28 @@ public class PlayerController : MonoBehaviour
             _inputValueNotNullable = _inputValue;
 
         Vector3 dir = ((transform.forward * _inputValueNotNullable.y) + (transform.right * _inputValueNotNullable.x)).normalized;
-        _controller.Move(new Vector3(dir.x * _speed.x, dir.y, dir.z * _speed.y) * normalizedInputMagnitude);
+        _controller.Move(new Vector3(dir.x * _speed.x, dir.y, dir.z * _speed.y) * normalizedInputMagnitude * Time.fixedDeltaTime);
+    }
+
+    /// <summary>
+    /// apply gravity to character controller
+    /// </summary>
+    private void GravityApply()
+    {
+        if(!_controller.isGrounded)
+        {
+            _controller.Move(Physics.gravity * Time.fixedDeltaTime * _timer);
+
+            if (_timer < 1)
+                _timer += Time.fixedDeltaTime / _fallDownHardeness;
+            else
+                _timer = 1;
+        }
+        else
+        {
+            _timer = 0;
+        }
+
     }
 
     #region Input System Functions
