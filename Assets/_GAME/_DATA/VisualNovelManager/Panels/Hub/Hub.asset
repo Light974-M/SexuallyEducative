@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8c81f7419afc543a246491f935a764, type: 3}
+  m_Name: Hub
+  m_EditorClassIdentifier: 
+  _panelPrefab: {fileID: 8039074370016192268, guid: 053636269ac1d7a4eb00788a198fca29,
+    type: 3}
+  _cameraPosition: {x: 1.41, y: 3.13, z: 0}
+  _cameraRotation: {x: -0.110208355, y: 0.29836094, z: -0.03470625, w: -0.94743353}

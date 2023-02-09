@@ -2,33 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelManager : MonoBehaviour
+namespace UPDB.Data.VisualNovelManager
 {
-    [SerializeField, Tooltip("list of all panels linked to this panel")]
-    private GameObject[] _linkedPanels;
-
-    // Start is called before the first frame update
-    void Start()
+    public class PanelManager : MonoBehaviour
     {
-        
-    }
+        [SerializeField, Tooltip("list of all panels linked to this panel")]
+        private PanelData[] _linkedPanels;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void LoadPanel(int index)
-    {
-        if(index >= 0 && index < _linkedPanels.Length)
+        // Start is called before the first frame update
+        void Start()
         {
-            Instantiate(_linkedPanels[index], transform.parent);
-            Destroy(gameObject);
+
         }
-        else
+
+        // Update is called once per frame
+        void Update()
         {
-            Debug.LogError($"you are trying to access index N°{index} wich doesn't exist in {_linkedPanels} that has a length of {_linkedPanels.Length}");
+
+        }
+
+        public void LoadPanel(int index)
+        {
+            if (index >= 0 && index < _linkedPanels.Length)
+            {
+                Instantiate(_linkedPanels[index].PanelPrefab, transform.parent);
+                VisualNovelManager.Instance.Camera.transform.position = _linkedPanels[index].CameraPosition;
+                VisualNovelManager.Instance.Camera.transform.rotation = _linkedPanels[index].CameraRotation;
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.LogError($"you are trying to access index NÂ°{index} wich doesn't exist in {_linkedPanels} that has a length of {_linkedPanels.Length}");
+            }
         }
     }
 }

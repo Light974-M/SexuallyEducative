@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linkedPanels:
-  - {fileID: 8039074370016192268, guid: 053636269ac1d7a4eb00788a198fca29, type: 3}
+  - {fileID: 11400000, guid: 6f6bbbcb69a97e849a82b3069f6c7a5c, type: 2}
 --- !u!1 &6234712076671486510
 GameObject:
   m_ObjectHideFlags: 0

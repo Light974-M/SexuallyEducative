@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8c81f7419afc543a246491f935a764, type: 3}
+  m_Name: Your Room
+  m_EditorClassIdentifier: 
+  _panelPrefab: {fileID: 7086750172020861945, guid: 3dc7d28c122c02345baa80e194132c69,
+    type: 3}
+  _cameraPosition: {x: 1.41, y: 3.13, z: 0}
+  _cameraRotation: {x: 0.10653785, y: 0.21870038, z: -0.024028882, w: 0.969661}
