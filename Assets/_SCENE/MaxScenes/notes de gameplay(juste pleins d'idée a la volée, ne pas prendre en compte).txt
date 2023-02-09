@@ -19,3 +19,6 @@ notes jeu de cul gameplay :
 	Pour un mode bdsm top, le principe est inversé : on doit avoir l'état affected sans la lust, on fait alors baisser la lust en dessous de 0, et si la trust est toujours en affected, on passe dans un mirroir bdsm de toutes les actions, jusqu’au mirroir de amoureux, l’état « soumis » qui donne lieu a tout les mirroir en bdsm, tout comme l’etat femdom, ici, c’est la lust qui est inversé, et si le joueur rate et fait donc remonter la lust au dessus de 0, on repasse en mode normal, la meme chose arrive si la trust devient insuffisante
 
 	pour un mode mix, il faut etre en état soumis(équivalent d'amoureux), et l'enerver, si la lust et la trust sont toujours assez élevé, on passe nn pas en enervé mais en dégouté, on a alors le mode mix du amoureux, puis, on passe dans les version dégouté des horny, pour en sortir, il suffit de manquer de lust ou de trust(tout comme le mode top) ou de calmer le personnage.
+
+
+Idée : mode sex friend, arrive dans le cas spécifique où le joueur, en état normal, arrive a monter la lust sans la trust, on skip alors l'état affected et amoureux, en entrant dans les modes horny, on ah alors les modes horny en version "désintéréssé", où le sex est normalement accessible, mais le perso s'en fout.
