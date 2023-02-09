@@ -1,0 +1,21 @@
+notes jeu de cul gameplay :
+
+-les scenes de cul venant d’autres persos que ceux interactible c pas fun
+
+-Les stats intelligence beauté et reput sa fait quoi ?
+
+-ta des trucs en doublons(aider des gens et buter des demons revient au meme)
+
+-les etats representent juste un total de points entre trust et lust, les actions requiert toutes un total trust/lust sans distinction des deux, et l’etat affected ne traduit pas de cap particulier.
+
+-Mon idée(et ma première lecture du code) : l'état affected représente le plateau de trust, et l'état horny représente le plateau de lust ET requiert les états peuvent dépendre d'autres états(ex : horny requiert d'abord l'état affected, et requiert "l'état", et non pas "les meme parametres que l'état", c'est pas exactement pareil) et les actions requierts toutes un certain niveau de trust et de lust.
+
+-Idée : mettre des etats intermédiaires(ex : pour la trust ya rien d’intéressant(pour l’instant), pour la lust, tout les etats doivent requierer l’etat affected, état premier = amoureuse(peut faire des trucs osé mais pas de sexe, perte de trust plus punitive et perte de lust minime) ensuite, juste avant horny, le horny shy, tout est possible sauf le sexe pure, pas de perte de trust, grosse perte de lust).
+
+-Idée : faire un mode bdsm, qui inclus un mode femdom, un mode top, et un mode mix, 
+	femdom : le but est d'avoir la lust d'un état amoureux sans la trust, ensuite, baisser la trust en dessous de zero, et calmer le perso, une fois la trust négative, si la lust est toujours ok, toute les actions requise on un mode femdom, et toutes les actions faisant monter la trust la font maintenant baisser, et inversement, jusqu’a ce que la trust soit egal a l’etat amoureux en negatif, alors, un état similaire a amoureux apparait, l’état « dominante »
+	qui est un mirroir en femdom, en montant la lust, on passe dans des états mirroir des horny en femdom, avant d’atteindre l’état final, le mode est reversible si le joueur rate et fait donc remonter la trust(les montées et descentes de trust étant inversé) on repasse alors en mode normal, la meme chose arrive si la lust devient insuffisante.
+
+	Pour un mode bdsm top, le principe est inversé : on doit avoir l'état affected sans la lust, on fait alors baisser la lust en dessous de 0, et si la trust est toujours en affected, on passe dans un mirroir bdsm de toutes les actions, jusqu’au mirroir de amoureux, l’état « soumis » qui donne lieu a tout les mirroir en bdsm, tout comme l’etat femdom, ici, c’est la lust qui est inversé, et si le joueur rate et fait donc remonter la lust au dessus de 0, on repasse en mode normal, la meme chose arrive si la trust devient insuffisante
+
+	pour un mode mix, il faut etre en état soumis(équivalent d'amoureux), et l'enerver, si la lust et la trust sont toujours assez élevé, on passe nn pas en enervé mais en dégouté, on a alors le mode mix du amoureux, puis, on passe dans les version dégouté des horny, pour en sortir, il suffit de manquer de lust ou de trust(tout comme le mode top) ou de calmer le personnage.
