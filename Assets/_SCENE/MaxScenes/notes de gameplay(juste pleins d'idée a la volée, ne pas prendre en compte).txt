@@ -6,7 +6,12 @@ notes jeu de cul gameplay :
 
 -ta des trucs en doublons(aider des gens et buter des demons revient au meme)
 
--les etats representent juste un total de points entre trust et lust, les actions requiert toutes un total trust/lust sans distinction des deux, et l’etat affected ne traduit pas de cap particulier.
+-les actions sont en trois type, non sexe, faveurs, et sexe
+
+-les etats representent plusieurs trucs :
+	l'état affected est un total de points entre trust et lust, toutes les actions requiert un total trust/lust sans distinction des deux, et l’etat affected ne traduit pas de cap particulier.
+	l'état horny est débile puisque il traduit juste un plateau de lust, mais ne change rien aux total trust/lust requis, ainsi, une meuf peut etre horny mais ne pas vouloir baiser
+	(en somme c nul)
 
 -Mon idée(et ma première lecture du code) : l'état affected représente le plateau de trust, et l'état horny représente le plateau de lust ET requiert les états peuvent dépendre d'autres états(ex : horny requiert d'abord l'état affected, et requiert "l'état", et non pas "les meme parametres que l'état", c'est pas exactement pareil) et les actions requierts toutes un certain niveau de trust et de lust.
 
