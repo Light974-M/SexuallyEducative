@@ -45,7 +45,7 @@ public class MB_PlayerLife : MonoBehaviour
         jaugeTransform.localScale = new Vector3((float)(_life / _enemySo._originalLife), 1, 1);
 
     }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "EnemyWeapon")
