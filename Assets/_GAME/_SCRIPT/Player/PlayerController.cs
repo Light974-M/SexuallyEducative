@@ -179,6 +179,7 @@ public class PlayerController : MonoBehaviour
     public void GetMove(InputAction.CallbackContext callback)
     {
         _inputValue = callback.ReadValue<Vector2>();
+
     }
 
     #endregion

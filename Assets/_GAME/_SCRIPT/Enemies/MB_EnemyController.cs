@@ -32,7 +32,7 @@ public class MB_EnemyController : MonoBehaviour
     [SerializeField] private bool _enableDetectionGizmos;
     MB_EnemyAttack _enemyAttack;
 
-
+    public MB_EnemyDetector _detector;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +57,14 @@ public class MB_EnemyController : MonoBehaviour
     {
         //Distance with player detection
         float _playerDistance = Vector3.Distance(_player.transform.position, transform.position);
-
+        if(_detector._target != null)
+        {
+            _player = _detector._target;
+        }
+        else
+        {
+            _player = GameObject.FindWithTag("Player");
+        }
 
         //Checking if the player is at the good distance to follow him
         if (!_isFollowingPlayer)
