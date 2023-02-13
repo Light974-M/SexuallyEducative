@@ -55,8 +55,7 @@ public class MB_EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Distance with player detection
-        float _playerDistance = Vector3.Distance(_player.transform.position, transform.position);
+      
         if(_detector._target != null)
         {
             _player = _detector._target;
@@ -65,6 +64,9 @@ public class MB_EnemyController : MonoBehaviour
         {
             _player = GameObject.FindWithTag("Player");
         }
+
+        //Distance with player detection
+        float _playerDistance = Vector3.Distance(_player.transform.position, transform.position);
 
         //Checking if the player is at the good distance to follow him
         if (!_isFollowingPlayer)

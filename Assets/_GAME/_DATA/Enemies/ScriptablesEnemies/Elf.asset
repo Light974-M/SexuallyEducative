@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff1260aeab675a45afac85cbf24c14c, type: 3}
+  m_Name: Elf
+  m_EditorClassIdentifier: 
+  _name: Elf
+  _description: 
+  _canFollowPlayer: 1
+  _walkSpeed: 2
+  _runSpeed: 6
+  _playerDistanceDetection: 8.87
+  _playerUnfollowDistance: 12.86
+  _playerAttackDistance: 2.24
+  _minTimeToChangeDirection: 2
+  _maxTimeToChangeDirection: 6
+  _originalLife: 15
+  _attack: 5
+  _minTimeBeforeAttack: 1
+  _maxTimeBeforeAttack: 2

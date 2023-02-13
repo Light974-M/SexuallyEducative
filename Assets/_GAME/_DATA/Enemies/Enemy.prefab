@@ -139,11 +139,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813936050}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3, z: 2.2961278}
+  m_Center: {x: 0, y: 0, z: 0.35193616}
 --- !u!54 &1813936054
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -794,6 +794,7 @@ MonoBehaviour:
   _soWeapon: {fileID: 11400000, guid: d819ad91bf53fb846b47763d52665650, type: 2}
   _timeToChangeDirection: 0
   _enableDetectionGizmos: 1
+  _detector: {fileID: 0}
 --- !u!114 &4493117151877875181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,6 +809,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jaugeTransform: {fileID: 4493117151467260799}
   secondaryJauge: {fileID: 4493117150977888496}
+  _deathFX: {fileID: 0}
+  _cam: {fileID: 0}
+  _isBoss: 0
+  _ennemyAttack: {fileID: 650510892}
 --- !u!114 &650510892
 MonoBehaviour:
   m_ObjectHideFlags: 0

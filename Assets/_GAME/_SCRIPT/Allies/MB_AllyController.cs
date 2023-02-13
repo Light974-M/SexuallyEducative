@@ -28,7 +28,7 @@ public class MB_AllyController : MonoBehaviour
     public bool isAttacking;
 
 
-  
+    [SerializeField] MB_PlayerLife _life;
 
    public  GameObject _target;
    public  GameObject _secondtarget;
@@ -81,23 +81,30 @@ public class MB_AllyController : MonoBehaviour
             }
         }
     
-
-
-        //Distance Setter
-        if (_playerDistance <= _soAlly._playerDistanceDetection && _playerDistance > _soAlly._playerDistanceToStop)
+        if(_life._isDead)
         {
-
-            _enemyAgent.speed = _walkSpeed;
-        }
-        if (_playerDistance <= _soAlly._playerDistanceToStop)
-        {
-
             _enemyAgent.speed = 0;
         }
-        if (_playerDistance > _soAlly._playerDistanceDetection)
+        else
         {
-            _enemyAgent.speed = _runSpeed;
+
+            //Distance Setter
+            if (_playerDistance <= _soAlly._playerDistanceDetection && _playerDistance > _soAlly._playerDistanceToStop)
+            {
+
+                _enemyAgent.speed = _walkSpeed;
+            }
+            if (_playerDistance <= _soAlly._playerDistanceToStop)
+            {
+
+                _enemyAgent.speed = 0;
+            }
+            if (_playerDistance > _soAlly._playerDistanceDetection)
+            {
+                _enemyAgent.speed = _runSpeed;
+            }
         }
+
 
     
        

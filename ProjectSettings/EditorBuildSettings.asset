@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_SCENE/MaxScenes/Level 1 Max.unity
     guid: 124551bdfc224be468a5b97c0f0de090
+  - enabled: 1
+    path: Assets/_SCENE/NoamScenes/Level1Noam.unity
+    guid: 263074f9cf73cb54ea2dea2253488440
+  - enabled: 1
+    path: Assets/_SCENE/NoamScenes/Hub.unity
+    guid: e360d401b2d48e44db5d86c000ab4ec6
   m_configObjects: {}

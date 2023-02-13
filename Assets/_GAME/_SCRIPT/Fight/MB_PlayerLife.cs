@@ -5,9 +5,11 @@ using UnityEngine;
 public class MB_PlayerLife : MonoBehaviour
 {
 
-   [SerializeField]SO_Enemy _enemySo;
+   public SO_Enemy _enemySo;
     [SerializeField] MB_WeaponController _weaponController;
-    float _life;
+
+    [HideInInspector]
+    public float _life;
     [SerializeField] SO_Weapon _weaponSO;
     //Life Bar Variables
     [SerializeField, Tooltip("The bar following equals to the life")] Transform jaugeTransform;
@@ -17,6 +19,12 @@ public class MB_PlayerLife : MonoBehaviour
     SegarioFeedbackMaker _feedbackMaker;
     [SerializeField] private GameObject _deathFX;
     [SerializeField] GameObject _cam;
+
+    [SerializeField] private Animator _allyAnim;
+    [SerializeField] private bool _isPlayer;
+    [SerializeField] private GameObject _visu;
+
+    public bool _isDead;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,11 +40,18 @@ public class MB_PlayerLife : MonoBehaviour
         //If the life is inferior to 0
         if (_life <= 0 && canDie)
         {
+            Invoke("Death", 1);
+            
             _feedbackMaker.FreezeFrame(0.6f);
             _feedbackMaker.InstantiateFX(_deathFX, this.transform.position);
             _life = 0;
-            Invoke("Death", 1);
+           
             canDie = false;
+        }
+
+        if (_life >=  _enemySo._originalLife)
+        {
+            _life = _enemySo._originalLife;
         }
 
         //Life Bar Management
@@ -46,7 +61,7 @@ public class MB_PlayerLife : MonoBehaviour
 
     }
     
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.tag == "EnemyWeapon")
         {
@@ -61,6 +76,14 @@ public class MB_PlayerLife : MonoBehaviour
     //Death of the enemy
     void Death()
     {
-        Destroy(gameObject);
+        if(_isPlayer)
+        {
+            Destroy(_visu);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }

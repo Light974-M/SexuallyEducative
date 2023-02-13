@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff1260aeab675a45afac85cbf24c14c, type: 3}
-  m_Name: TestEnemy 1
+  m_Script: {fileID: 11500000, guid: 5312915109d878945a35f80640b52870, type: 3}
+  m_Name: Bobette
   m_EditorClassIdentifier: 
-  _name: Test Enemy
-  _canFollowPlayer: 1
+  _name: Bobette
+  _description: 
   _walkSpeed: 2
-  _runSpeed: 4
-  _playerDistanceDetection: 4
-  _playerUnfollowDistance: 15
-  _minTimeToChangeDirection: 2
-  _maxTimeToChangeDirection: 6
+  _runSpeed: 6
+  _playerDistanceDetection: 7.07
+  _playerDistanceToStop: 2.45
+  _ennemyAttackDistance: 5.66
   _originalLife: 30
-  _attack: 8
+  _attack: 3
+  _minTimeBeforeAttack: 2
+  _maxTimeBeforeAttack: 3

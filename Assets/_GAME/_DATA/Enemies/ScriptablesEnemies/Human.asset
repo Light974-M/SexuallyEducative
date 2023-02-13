@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ff1260aeab675a45afac85cbf24c14c, type: 3}
-  m_Name: TestEnemy
+  m_Name: Human
   m_EditorClassIdentifier: 
-  _name: Test Enemy
+  _name: Human
   _description: 
   _canFollowPlayer: 1
-  _walkSpeed: 0.75
-  _runSpeed: 3.05
-  _playerDistanceDetection: 5
-  _playerUnfollowDistance: 10
+  _walkSpeed: 1.5
+  _runSpeed: 3
+  _playerDistanceDetection: 6.07
+  _playerUnfollowDistance: 10.44
   _playerAttackDistance: 3
   _minTimeToChangeDirection: 2
   _maxTimeToChangeDirection: 6
-  _originalLife: 20
-  _attack: 13
+  _originalLife: 30
+  _attack: 10
   _minTimeBeforeAttack: 1
   _maxTimeBeforeAttack: 3

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MB_EnemyLife : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class MB_EnemyLife : MonoBehaviour
     SegarioFeedbackMaker _feedbackMaker;
     [SerializeField] private GameObject _deathFX;
     [SerializeField] GameObject _cam;
+    [SerializeField] private bool _isBoss;
+    [SerializeField] MB_EnemyAttack _ennemyAttack;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +37,7 @@ public class MB_EnemyLife : MonoBehaviour
         //If the life is inferior to 0
         if (_life <= 0 && canDie)
         {
+            _ennemyAttack._canAttack = false;
             _feedbackMaker.ScreenShake(_cam, 1, 1);
             _feedbackMaker.FreezeFrame(1);
             _feedbackMaker.InstantiateFX(_deathFX, this.transform.position);
@@ -52,6 +56,10 @@ public class MB_EnemyLife : MonoBehaviour
     //Death of the enemy
     void Death()
     {
+        if(_isBoss)
+        {
+            SceneManager.LoadScene("Hub");
+        }
         Destroy(gameObject);
     }
 
