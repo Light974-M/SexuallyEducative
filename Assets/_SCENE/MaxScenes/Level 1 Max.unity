@@ -415,18 +415,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399921765}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &716081166 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5591081748102191558, guid: 299fe80502f544d4d968ab17816dc40a,
-    type: 3}
-  m_PrefabInstance: {fileID: 5591081749101931528}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c13ebc2ba0677b14188b22c3083da844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &767471112
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,16 +880,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5591081748102191558, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: _lookSpeed.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748102191558, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: _lookSpeed.y
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 5591081748146371878, guid: 299fe80502f544d4d968ab17816dc40a,
         type: 3}
       propertyPath: m_Name
@@ -961,72 +939,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371897, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: _speed.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371897, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: _speed.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371897, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: _rotationMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
-      value: 5baa14ef-6f59-462b-860a-d332b26e4b20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
-      value: Basics/Look[/XInputControllerWindows/rightStick/up,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/rightStick/right,/Mouse/delta/up,/Mouse/delta/down,/Mouse/delta/left,/Mouse/delta/right]
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 716081166}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GetLook
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UPDB.CamerasAndCharacterControllers.Cameras.TpsCamera.CameraController,
-        Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591081748146371898, guid: 299fe80502f544d4d968ab17816dc40a,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}

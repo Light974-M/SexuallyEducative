@@ -29,12 +29,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("determine time for player to reach max fall speed")]
     private float _fallDownHardeness = 1;
 
+    [SerializeField, Tooltip("speed of player to turn arround")]
+    private float _rotationSpeed = 1;
+
     private Vector2 _inputValue = Vector2.zero;
     private bool _isGrounded = false;
     private float _timer = 0;
 
     private float _normalizedInputMagnitudeMemo = 0;
     private Vector2 _inputValueNotNullable = Vector2.zero;
+
+    private float _inputLerpTimer = 0;
+    private Vector2 _lerpStart = Vector2.zero;
+    private Vector2 _smoothedInputValue = Vector2.zero;
 
     #region Public API
 
@@ -120,11 +127,19 @@ public class PlayerController : MonoBehaviour
     {
         if (_inputValue.magnitude != 0)
         {
+            _smoothedInputValue = AutoLerp(_lerpStart, _inputValue, _rotationSpeed, ref _inputLerpTimer);
+
+            PreventRotationFromClipping(ref _smoothedInputValue);
+
             transform.LookAt(new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z));
             transform.eulerAngles += new Vector3(0, 180, 0);
 
             if (_rotationMode == PlayerRotationMode.Free)
-                _playerComponentsPivot.LookAt(new Vector3(transform.position.x + _controller.velocity.x, transform.position.y, transform.position.z + _controller.velocity.z));
+            {
+                Vector3 dir = transform.forward * _smoothedInputValue.y + transform.right * _smoothedInputValue.x;
+                Vector3 position = transform.position + dir;
+                _playerComponentsPivot.LookAt(position);
+            }
             else if (_rotationMode == PlayerRotationMode.Clamped)
                 _playerComponentsPivot.localEulerAngles = Vector3.zero;
             else if (_rotationMode == PlayerRotationMode.SmoothlyClamped)
@@ -155,7 +170,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void GravityApply()
     {
-        if(!_controller.isGrounded)
+        if (!_controller.isGrounded)
         {
             _controller.Move(Physics.gravity * Time.fixedDeltaTime * _timer);
 
@@ -171,6 +186,58 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// make a lerp automatically(based on delta time update rate) with Vector2, between a and b, in a specific time
+    /// </summary>
+    /// <param name="a">start point</param>
+    /// <param name="b">end point</param>
+    /// <param name="lerpTime">time to make lerp</param>
+    /// <param name="timer">timer to store lerp progression</param>
+    /// <returns></returns>
+    private Vector2 AutoLerp(Vector2 a, Vector2 b, float lerpTime, ref float timer)
+    {
+        Vector2 value = Vector2.zero;
+
+        if (timer < lerpTime)
+        {
+            value = Vector2.Lerp(a, b, timer / lerpTime);
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            timer = lerpTime;
+            value = b;
+        }
+
+        return value;
+    }
+
+    private void PreventRotationFromClipping(ref Vector2 input)
+    {
+        if (Mathf.Abs(input.x) <= 0.05f || Mathf.Abs(input.y) <= 0.05f)
+        {
+            if (Mathf.Abs(input.x) < Mathf.Abs(input.y))
+                input.x = AvoidClipping(input.x, input.y);
+            else
+                input.y = AvoidClipping(input.y, input.x);
+
+
+            float AvoidClipping(float inputToChange, float otherInput)
+            {
+                if (inputToChange >= 0)
+                    otherInput = Mathf.Abs(otherInput);
+                else
+                    otherInput = -Mathf.Abs(otherInput);
+
+                inputToChange = -Mathf.Pow(otherInput, 2) + 1;
+
+                return inputToChange;
+            }
+        }
+
+
+    }
+
     #region Input System Functions
 
     /// <summary>
@@ -178,8 +245,15 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void GetMove(InputAction.CallbackContext callback)
     {
+        if (_inputValue.normalized != callback.ReadValue<Vector2>().normalized)
+        {
+            _inputLerpTimer = 0;
+            _lerpStart = _smoothedInputValue;
+        }
+
         _inputValue = callback.ReadValue<Vector2>();
     }
+
 
     #endregion
 }

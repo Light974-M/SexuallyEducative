@@ -107,6 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5591081748102191557}
   - component: {fileID: 5591081748102191558}
+  - component: {fileID: 197833791}
   m_Layer: 3
   m_Name: Camera
   m_TagString: Untagged
@@ -122,7 +123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5591081748102191556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -143,7 +144,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraPivot: {fileID: 5591081748102191557}
-  _lookSpeed: {x: 2, y: 2}
+  _lookSpeed: {x: 0.1, y: 0.1}
+--- !u!114 &197833791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5591081748102191556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fed3bca17f0d9e4ca6de4a9eb9bed5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 5591081748102191557}
+  movementSmoothTime: 0.05
+  targetArmLength: 6
+  socketOffset: {x: 0.5, y: 0.6, z: 0}
+  targetOffset: {x: 0, y: 0.6, z: 0}
+  doCollisionTest: 1
+  collisionTestResolution: 4
+  collisionProbeSize: 0.5
+  collisionSmoothTime: 0.01
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 55
+  visualDebugging: 1
+  springArmColor: {r: 0.986397, g: 1, b: 0, a: 1}
+  springArmLineWidth: 10
+  showRaycasts: 0
+  showCollisionProbe: 1
 --- !u!1 &5591081748146371878
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,9 +224,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 5591081748146371896}
   _playerComponentsPivot: {fileID: 5591081748636257128}
-  _speed: {x: 0.1, y: 0.1}
+  _speed: {x: 5, y: 5}
   _smoothVelocityFallDown: 0.9
-  _rotationMode: 2
+  _rotationMode: 0
+  _fallDownHardeness: 1
+  _rotationSpeed: 0.1
 --- !u!143 &5591081748146371896
 CharacterController:
   m_ObjectHideFlags: 0
@@ -257,6 +289,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 81b21817-12d7-4bfb-8b75-c7f2cc3a9d29
     m_ActionName: Basics/Move[/Keyboard/a,/XInputControllerWindows/leftStick/left,/Keyboard/d,/XInputControllerWindows/leftStick/right,/Keyboard/s,/XInputControllerWindows/leftStick/down,/Keyboard/w,/XInputControllerWindows/leftStick/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5591081748102191558}
+        m_TargetAssemblyTypeName: UPDB.CamerasAndCharacterControllers.Cameras.TpsCamera.CameraController,
+          Assembly-CSharp
+        m_MethodName: GetLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5baa14ef-6f59-462b-860a-d332b26e4b20
+    m_ActionName: Basics/Look[/XInputControllerWindows/rightStick/up,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/rightStick/right,/Mouse/delta/up,/Mouse/delta/down,/Mouse/delta/left,/Mouse/delta/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Basics
@@ -289,7 +338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5591081748254621807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.5, y: 0.5999999, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
