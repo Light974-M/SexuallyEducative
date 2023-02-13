@@ -10,6 +10,9 @@ namespace UPDB.Data.VisualNovelManager
         [SerializeField, Tooltip("prefab that contain panel to load")]
         private GameObject _panelPrefab;
 
+        [SerializeField, Tooltip("is this panel to destroy, or just to disable for saving changes")]
+        private bool _isSavingProof = true;
+
         [Header("TRANSFORM CAMERA")]
         [SerializeField, Tooltip("position of camera when current panel is loaded")]
         private Vector3 _cameraPosition;
@@ -36,6 +39,8 @@ namespace UPDB.Data.VisualNovelManager
             get { return _cameraRotation; }
             set { _cameraRotation = value; }
         }
+
+        public bool IsSavingProof => _isSavingProof;
 
         #endregion
 

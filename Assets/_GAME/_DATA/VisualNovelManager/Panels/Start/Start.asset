@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panelPrefab: {fileID: 6234712076428635203, guid: e9bc08ed0569a564ca9a7d74031d617b,
     type: 3}
+  _isSavingProof: 0
   _cameraPosition: {x: 0, y: 0, z: 0}
   _cameraRotation: {x: 0, y: 0, z: 0, w: 0}

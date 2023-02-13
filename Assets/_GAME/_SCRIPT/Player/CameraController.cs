@@ -1,24 +1,32 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace UPDB.CamerasAndCharacterControllers.Cameras.TpsCamera
+namespace UPDB.CamerasAndCharacterControllers.Cameras.SimpleGenericCamera
 {
     /// <summary>
-    /// simple tps camera controller, can be used with fps controller or alone
+    /// usefull generic camera controller, can be used with fps or tps controller or alone(or wathever controller you want, simply drag script into object that will be rotated)
     /// </summary>
-    [AddComponentMenu("UPDB/CamerasAndCharacterControllers/Cameras/TpsCamera/Tps Camera Controller")]
+    [AddComponentMenu("UPDB/CamerasAndCharacterControllers/Cameras/SimpleGenericCamera/Generic Camera Controller")]
     public class CameraController : MonoBehaviour
     {
-        [SerializeField, Tooltip("Camera pivot linked to this Player(where you have to put camera script)")]
-        private Transform _cameraPivot;
-
         [SerializeField, Tooltip("speed of mouse look in X and Y")]
         private Vector2 _lookSpeed = Vector2.one;
 
-        private Vector2 _inputValue = Vector2.zero;
-        private Vector2 _rotation = Vector2.zero;
+        #region Private API
 
+        /// <summary>
+        /// main variable to setup input value each update
+        /// </summary>
+        private Vector2 _inputValue = Vector2.zero;
+
+        /// <summary>
+        /// used to store rotation that will be offset by input each update
+        /// </summary>
+        private Vector2 _rotation = Vector2.zero; 
+
+        #endregion
+
+        #region Public API
 
         public Vector2 LookSpeed
         {
@@ -26,28 +34,19 @@ namespace UPDB.CamerasAndCharacterControllers.Cameras.TpsCamera
             set { _lookSpeed = value; }
         }
 
-        public Transform CameraPivot
-        {
-            get { return _cameraPivot; }
-            set { _cameraPivot = value; }
-        }
+        #endregion
 
-        private void Awake()
-        {
-            InitVariables();
-        }
-
+        /// <summary>
+        /// update is called each frame
+        /// </summary>
         private void Update()
         {
             Look();
         }
 
-        public void InitVariables()
-        {
-            if (_cameraPivot == null)
-                _cameraPivot = transform;
-        }
-
+        /// <summary>
+        /// manage rotation of transform, following input value
+        /// </summary>
         private void Look()
         {
             Vector2 mouse = new Vector2(_inputValue.x * _lookSpeed.x, _inputValue.y * _lookSpeed.y);
@@ -55,11 +54,15 @@ namespace UPDB.CamerasAndCharacterControllers.Cameras.TpsCamera
 
             _rotation.x = Mathf.Clamp(_rotation.x, -89, 89);
 
-            _cameraPivot.eulerAngles = new Vector3(_rotation.x, _rotation.y, 0.0f);
+            transform.eulerAngles = new Vector3(_rotation.x, _rotation.y, 0.0f);
 
             _inputValue = Vector2.zero;
         }
 
+         /// <summary>
+        /// public function to put input value with input system callback system
+        /// </summary>
+        /// <param name="callback"></param>
         public void GetLook(InputAction.CallbackContext callback)
         {
             _inputValue = callback.ReadValue<Vector2>();

@@ -548,6 +548,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1195628843 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5591081748254621793, guid: 299fe80502f544d4d968ab17816dc40a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5591081749101931528}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1338920484
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,6 +886,82 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _showRaycasts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _targetCamera
+      value: 
+      objectReference: {fileID: 1195628843}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _cameraOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _cameraOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _socketOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _socketOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _targetOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _doCollisionTest
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _targetArmLength
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _visualDebugging
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _springArmColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _springArmColor.b
+      value: 0.023584902
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _springArmColor.g
+      value: 0.97210246
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _springArmColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _collisionProbeSize
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _showCollisionProbe
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _springArmLineWidth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _collisionSmoothTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 197833791, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}
+      propertyPath: _collisionTestResolution
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5591081748146371878, guid: 299fe80502f544d4d968ab17816dc40a,
         type: 3}
       propertyPath: m_Name
@@ -939,6 +1021,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591081748254621794, guid: 299fe80502f544d4d968ab17816dc40a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591081748254621794, guid: 299fe80502f544d4d968ab17816dc40a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591081748254621794, guid: 299fe80502f544d4d968ab17816dc40a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 299fe80502f544d4d968ab17816dc40a, type: 3}

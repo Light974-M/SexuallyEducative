@@ -4,167 +4,219 @@
 using UnityEditor;
 #endif
 
-[ExecuteAlways]
-public class SpringArm : MonoBehaviour
+namespace UPDB.CamerasAndCharacterControllers.Cameras.SimpleGenericCamera
 {
-    [Space]
-    [Header("Follow Settings \n--------------------")]
-    [Space]
-    public Transform target;
-    public float movementSmoothTime = 0.05f;
-    public float targetArmLength = 3f;
-    public Vector3 socketOffset;
-    public Vector3 targetOffset;
-
-    [Space]
-    [Header("Collision Settings \n-----------------------")]
-    [Space]
-    public bool doCollisionTest = true;
-    [Range(2, 20)]
-    public int collisionTestResolution = 4;
-    public float collisionProbeSize = 0.3f;
-    public float collisionSmoothTime = 0.05f;
-    public LayerMask collisionLayerMask = ~0;
-
-    [Space]
-    [Header("Debugging \n--------------")]
-    [Space]
-    public bool visualDebugging = true;
-    public Color springArmColor = new Color(0.75f, 0.2f, 0.2f, 0.75f);
-    [Range(1f, 10f)]
-    public float springArmLineWidth = 6f;
-    public bool showRaycasts;
-    public bool showCollisionProbe;
-
-    #region Private Variables
-
-    private Vector3 endPoint;
-    private Vector3 socketPosition;
-    private RaycastHit[] hits;
-    private Vector3[] raycastPositions;
-
-    private readonly Color collisionProbeColor = new Color(0.2f, 0.75f, 0.2f, 0.15f);
-
-    // refs for SmoothDamping
-    private Vector3 moveVelocity;
-    private Vector3 collisionTestVelocity;
-
-    // For mouse inputs
-    private float pitch;
-    private float yaw;
-
-    #endregion
-
-    private void Awake()
+    [ExecuteAlways, AddComponentMenu("UPDB/CamerasAndCharacterControllers/Cameras/SimpleGenericCamera/Spring Arm")]
+    public class SpringArm : MonoBehaviour
     {
-        raycastPositions = new Vector3[collisionTestResolution];
-        hits = new RaycastHit[collisionTestResolution];
-    }
+        [SerializeField, Tooltip("")]
+        private bool _armEnabled = true;
 
-    private void Update()
-    {
-        // if target is null, return from here: NullReference check
-        if (!target)
-            return;
+        [Space]
+        [Header("Follow Settings \n--------------------")]
+        [Space]
 
-        // Collision check
-        if (doCollisionTest)
-            CheckCollisions();
+        [SerializeField, Tooltip("Tagret camera to move, by default, child of this transform")]
+        private Camera _targetCamera;
 
-        // set the socketPosition
-        SetSocketTransform();
+        [SerializeField, Tooltip("setup length of arm, and so, distance of camera")]
+        private float _targetArmLength = 3f;
 
-        //// follow the target applying targetOffset
-        //transform.position = Vector3.SmoothDamp(transform.position, target.position + targetOffset, ref moveVelocity, movementSmoothTime);
-    }
+        [SerializeField, Tooltip("offset for camera target, also offset colliders and raycast")]
+        private Vector2 _cameraOffset;
 
-    private void OnValidate()
-    {
-        raycastPositions = new Vector3[collisionTestResolution];
-        hits = new RaycastHit[collisionTestResolution];
-    }
+        [Space]
+        [Header("Collision Settings \n-----------------------")]
+        [Space]
+
+
+        [SerializeField, Tooltip("number of raycast iterations")]
+        [Range(2, 20)]
+        private int _collisionTestResolution = 4;
+
+        [SerializeField, Tooltip("size of sphere collider arround camera")]
+        private float _collisionProbeSize = 0.3f;
+
+        [SerializeField, Tooltip("time for camera to go to a point to another(higher values = more cinematic but less reactive)")]
+        private float _smoothness = 0.05f;
+
+        [SerializeField, Tooltip("collision layers calculated by camera arm")]
+        private LayerMask _collisionLayerMask = ~0;
+
+        [Space]
+        [Header("Debugging \n--------------")]
+        [Space]
+
+        [SerializeField, Tooltip("is editor render debugging tools")]
+        private bool _visualDebugging = true;
+
+        [SerializeField, Tooltip("color of spring arm and raycasts in scene view")]
+        private Color _springArmColor = new Color(0.75f, 0.2f, 0.2f, 0.75f);
+
+        [SerializeField, Tooltip("width of spring arm and raycasts in scene view")]
+        [Range(1f, 25f)]
+        private float _springArmLineWidth = 6f;
+
+        [SerializeField, Tooltip("is scene view render every detailled raycast of arm instead of just a line ?")]
+        private bool _showRaycasts;
+
+        #region Private Variables
+
+        /// <summary>
+        /// end position of string arm
+        /// </summary>
+        private Vector3 _endPoint;
+
+        /// <summary>
+        /// position of main sphere collision of camera
+        /// </summary>
+        private Vector3 _socketPosition;
+
+        /// <summary>
+        /// list of hits for raycast of spring arm
+        /// </summary>
+        private RaycastHit[] _hits;
+
+        /// <summary>
+        /// container for raycast positions
+        /// </summary>
+        private Vector3[] _raycastPositions;
+
+        /// <summary>
+        /// refs for SmoothDamping speed
+        /// </summary>
+        private Vector3 _moveVelocity;
+
+        /// <summary>
+        /// refs for SmoothDamping collision test
+        /// </summary>
+        private Vector3 _collisionTestVelocity;
+
+        #endregion
+
+        #region Public API
+
+        public bool ArmEnabled
+        {
+            get { return _armEnabled; }
+            set { _armEnabled = value; }
+        }
+
+        #endregion
+
+        private void Awake()
+        {
+            if (!_targetCamera)
+                if (transform.childCount == 0 || !transform.GetChild(0).TryGetComponent(out _targetCamera))
+                    _targetCamera = new GameObject("Camera").AddComponent<Camera>();
+
+            _raycastPositions = new Vector3[_collisionTestResolution];
+            _hits = new RaycastHit[_collisionTestResolution];
+        }
+
+        private void Update()
+        {
+            // Collision check
+            if (_armEnabled)
+                CheckCollisions();
+
+            // set the socketPosition
+            SetSocketTransform();
+        }
+
+        private void OnValidate()
+        {
+            _raycastPositions = new Vector3[_collisionTestResolution];
+            _hits = new RaycastHit[_collisionTestResolution];
+        }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-        if (!visualDebugging)
-            return;
+        private void OnDrawGizmosSelected()
+        {
+            if (!_targetCamera)
+                if (transform.childCount == 0 || !transform.GetChild(0).TryGetComponent(out _targetCamera))
+                    _targetCamera = new GameObject("Camera").AddComponent<Camera>();
 
-        // Using Handles as they have MSAA, looks better than Gizmos
 
-        // Draw main LineTrace or LineTraces of RaycastPositions, useful for debugging
-        Handles.color = springArmColor;
+            if (!_visualDebugging)
+                return;
 
-        if (showRaycasts)
-            foreach (Vector3 raycastPosition in raycastPositions)
-                Handles.DrawAAPolyLine(springArmLineWidth, 2, transform.position, raycastPosition);
-        else
-            Handles.DrawAAPolyLine(springArmLineWidth, 2, transform.position, endPoint);
+            // Draw main LineTrace or LineTraces of RaycastPositions, useful for debugging
+            Handles.color = _springArmColor;
 
-        // Draw collisionProbe, useful for debugging
-        Handles.color = collisionProbeColor;
-        if (showCollisionProbe)
-            Handles.SphereHandleCap(0, socketPosition, Quaternion.identity, 2 * collisionProbeSize, EventType.Repaint);
-    }
+            if (_showRaycasts)
+                foreach (Vector3 raycastPosition in _raycastPositions)
+                    Handles.DrawAAPolyLine(_springArmLineWidth, 2, transform.position, raycastPosition);
+            else
+                Handles.DrawAAPolyLine(_springArmLineWidth, 2, transform.position, _endPoint);
+
+            // Draw collisionProbe, useful for debugging
+            Handles.color = new Color(0.2f, 0.75f, 0.2f, 0.15f);
+
+            Handles.SphereHandleCap(0, _socketPosition, Quaternion.identity, 2 * _collisionProbeSize, EventType.Repaint);
+        }
 #endif
 
-    /// <summary>
-    /// Checks for collisions and fill the raycastPositions and hits array
-    /// </summary>
-    private void CheckCollisions()
-    {
-        // iterate through raycastPositions and hits and set the corresponding data
-        for (int i = 0, angle = 0; i < collisionTestResolution; i++, angle += 360 / collisionTestResolution)
+        /// <summary>
+        /// Checks for collisions and fill the raycastPositions and hits array
+        /// </summary>
+        private void CheckCollisions()
         {
-            // Calculate the local position of a point w.r.t angle
-            Vector3 raycastLocalEndPoint = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0) * collisionProbeSize;
-            // Convert it to world space by offsetting it by origin: endPoint, and push in the array
-            raycastPositions[i] = endPoint + (transform.rotation * raycastLocalEndPoint);
-            // Sets the hit struct if collision is detected between this gameobject's position and calculated raycastPosition
-            Physics.Linecast(transform.position, raycastPositions[i], out hits[i], collisionLayerMask);
-        }
-    }
-
-    /// <summary>
-    /// Sets the translation of children according to filled raycastPositions and hits array data
-    /// </summary>
-    private void SetSocketTransform()
-    {
-        // offset a point in z direction of targetArmLength by socket offset and translating it into world space.
-        Vector3 targetArmOffset = socketOffset - new Vector3(0, 0, targetArmLength);
-        endPoint = transform.position + (transform.rotation * targetArmOffset);
-
-        // if collisionTest is enabled
-        if (doCollisionTest)
-        {
-            // finds the minDistance
-            float minDistance = targetArmLength;
-            foreach (RaycastHit hit in hits)
+            // iterate through raycastPositions and hits and set the corresponding data
+            for (int i = 0, angle = 0; i < _collisionTestResolution; i++, angle += 360 / _collisionTestResolution)
             {
-                if (!hit.collider)
-                    continue;
+                // Calculate the local position of a point w.r.t angle
+                Vector3 raycastLocalEndPoint = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0) * _collisionProbeSize;
 
-                float distance = Vector3.Distance(hit.point, transform.position);
-                if (minDistance > distance)
+                // Convert it to world space by offsetting it by origin: endPoint, and push in the array
+                _raycastPositions[i] = _endPoint + (transform.rotation * raycastLocalEndPoint);
+
+                // Sets the hit struct if collision is detected between this gameobject's position and calculated raycastPosition
+                Physics.Linecast(transform.position, _raycastPositions[i], out _hits[i], _collisionLayerMask);
+            }
+        }
+
+        /// <summary>
+        /// Sets the translation of children according to filled raycastPositions and hits array data
+        /// </summary>
+        private void SetSocketTransform()
+        {
+            // offset a point in z direction of targetArmLength by socket offset and translating it into world space.
+            Vector3 targetArmOffset = new Vector3(_cameraOffset.x, _cameraOffset.y, -_targetArmLength);
+            _endPoint = transform.position + (transform.rotation * targetArmOffset);
+
+            // if collisionTest is enabled
+            if (_armEnabled)
+            {
+                // finds the minDistance
+                float minDistance = _targetArmLength;
+                foreach (RaycastHit hit in _hits)
                 {
-                    minDistance = distance;
+                    if (!hit.collider)
+                        continue;
+
+                    float distance = Vector3.Distance(hit.point, transform.position);
+                    if (minDistance > distance)
+                    {
+                        minDistance = distance;
+                    }
                 }
+
+                // calculate the direction of children movement
+                Vector3 dir = (_endPoint - transform.position).normalized;
+                // get vector for movement
+                Vector3 armOffset = dir * (_targetArmLength - minDistance);
+                // offset it by endPoint and set the socketPositionValue
+                _socketPosition = _endPoint - armOffset;
+            }
+            // if collision is disabled
+            else
+            {
+                // set socketPosition value as endPoint
+                _socketPosition = _endPoint;
             }
 
-            // calculate the direction of children movement
-            Vector3 dir = (endPoint - transform.position).normalized;
-            // get vector for movement
-            Vector3 armOffset = dir * (targetArmLength - minDistance);
-            // offset it by endPoint and set the socketPositionValue
-            socketPosition = endPoint - armOffset;
+            _targetCamera.transform.position = Vector3.SmoothDamp(_targetCamera.transform.position, _socketPosition, ref _collisionTestVelocity, _smoothness);
         }
-        // if collision is disabled
-        else
-        {
-            // set socketPosition value as endPoint
-            socketPosition = endPoint;
-        }
-
-        Camera.main.transform.position = Vector3.SmoothDamp(Camera.main.transform.position, socketPosition, ref collisionTestVelocity, collisionSmoothTime);
-    }
+    } 
 }
